@@ -1,0 +1,25 @@
+
+%div
+  %label
+    Name
+    = f.text_field :name
+
+%div
+  %label
+    Water
+    = f.select(:water_stat, options_for_select(0..20))
+
+%div
+  %label
+    Food
+    = f.select(:food_stat, options_for_select(0..20))
+
+%div
+  %label
+    Movement
+    = f.select(:movement_stat, options_for_select(0..20))
+
+%div
+  %label
+    Stamina
+    = f.select(:stamina_stat, options_for_select(0..20))

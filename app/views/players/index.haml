@@ -1,0 +1,20 @@
+%h3 Players
+%div= link_to 'New Player', new_player_path
+%table
+  %thead
+    %th Name
+    %th H20 Size
+    %th Backpack Size
+    %th Movement
+    %th Stamina
+    %th Days Survived
+  %tbody
+    - @players.each do |player|
+      %tr
+        %td= player.name
+        %td= player.water_stat
+        %td= player.food_stat
+        %td= player.movement_stat
+        %td= player.stamina_stat
+        %td= player.max_age
+        %td= link_to "moves", new_player_move_path(player)

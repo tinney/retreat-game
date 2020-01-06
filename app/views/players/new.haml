@@ -1,0 +1,10 @@
+%h3 Create Player
+- if @player.errors.any?
+  .form-errors
+    - @player.errors.full_messages.each do |error_message|
+      %h4= error_message
+
+= form_for @player do |form|
+  = render 'form', f: form 
+  %div
+    = form.submit "Create"
