@@ -5,7 +5,10 @@ class MovesController < ApplicationController
   end
 
   def create
-    PlayerMover.move_player(player, direction)
+    location = PlayerMover.calculate_move(current_x: player.x, current_y: player.y, direction: direction)
+    GameEngine.take_turn(player, location)
+    GameBroadcaster.broadcast_player_moved(player)
+
     @player = player
     render "new"
   end

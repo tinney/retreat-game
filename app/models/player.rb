@@ -37,6 +37,8 @@ class Player < ApplicationRecord
   has_many :attempts
   has_one  :active_attempt, -> { where(active: true) }, :class_name=> "Attempt"
 
+  after_create :start_attempt!
+
   def as_json(_)
     {
       id: id,
@@ -55,5 +57,17 @@ class Player < ApplicationRecord
 
   def max_age
     active_attempt&.days_active || 0
+  end
+
+  def update_location!(location)
+    active_attempt.update!(x_location: location.x, y_location: location.y)
+  end
+
+  def x
+    active_attempt.x_location
+  end
+  
+  def y
+    active_attempt.y_location
   end
 end

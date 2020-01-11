@@ -1,12 +1,7 @@
 class PlayersController < ApplicationController
   def create
     @player = Player.new(player_params)
-    if @player.save
-      @player.start_attempt!
-      redirect_to @player
-    else
-      render "new"
-    end
+    @player.save ? redirect_to @player : render "new"
   end
 
   def index

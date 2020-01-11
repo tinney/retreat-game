@@ -3,44 +3,39 @@ class PlayerMover
   BOARD_WIDTH = 800 # NOTE this is also set in game.js
   MOVE_AMOUNT = 10
 
-  NORTH = 'North'.freeze
-  EAST = 'East'.freeze
-  SOUTH = 'South'.freeze
-  WEST = 'West'.freeze
+  NORTH = 'NORTH'.freeze
+  EAST = 'EAST'.freeze
+  SOUTH = 'SOUTH'.freeze
+  WEST = 'WEST'.freeze
 
-  def self.move_player(player, direction)
-    player
-    attempt = player.active_attempt
-    x = attempt.x_location
-    y = attempt.y_location
+  def self.calculate_move(current_x:, current_y:, direction:)
+    raise "unknown direction '#{direction}'" unless [NORTH, EAST, SOUTH, WEST].include?(direction.upcase!)
 
-    if direction == NORTH
-      y -= MOVE_AMOUNT
-      y = BOARD_HEIGHT - MOVE_AMOUNT if y < 0
-    elsif direction == SOUTH
-      y += MOVE_AMOUNT
-      y = 0 if y > BOARD_HEIGHT
-    elsif direction == EAST
-      x += MOVE_AMOUNT
-      x = 0 if x > BOARD_WIDTH
-    elsif direction == WEST
-      x -= MOVE_AMOUNT
-      x = BOARD_WIDTH - MOVE_AMOUNT if x < 0
-    else
-      raise "unknown direction '#{direction}'"
-    end
-
-    attempt.update!(x_location: x, y_location: y)
-    player_id = player.id
-    broadcast_move_to_channel(player_id, x, y)
+    Location.new(x: calculate_x(current_x, direction), y: calculate_y(current_y, direction))
   end
 
-  def self.broadcast_move_to_channel(player_id, x, y)
-    ActionCable.server.broadcast(
-      "players",
-      player_id: player_id, 
-      x: x, 
-      y: y,
-    )
+  private
+  def self.calculate_y(current_y, direction)
+    new_y = 0
+
+    return current_y if direction == EAST || direction == WEST
+
+    new_y = direction == NORTH ? current_y - MOVE_AMOUNT : current_y + MOVE_AMOUNT
+
+    return 0 if new_y > BOARD_HEIGHT
+    return BOARD_HEIGHT - MOVE_AMOUNT if new_y < 0
+    return new_y
+  end
+
+  def self.calculate_x(current_x, direction)
+    new_x = 0
+
+    return current_x if direction == NORTH || direction == SOUTH
+
+    new_x = direction == EAST ? current_x + MOVE_AMOUNT : current_x - MOVE_AMOUNT
+
+    return 0 if new_x > BOARD_WIDTH
+    return BOARD_WIDTH - MOVE_AMOUNT if new_x < 0
+    return new_x
   end
 end
