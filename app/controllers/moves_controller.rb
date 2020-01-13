@@ -5,12 +5,15 @@ class MovesController < ApplicationController
   end
 
   def create
-    location = PlayerMover.calculate_move(current_x: player.x, current_y: player.y, direction: direction)
-    GameEngine.take_turn(player, location)
-    GameBroadcaster.broadcast_player_moved(player)
-
+    GameEngine.take_turn(player, direction.upcase)
     @player = player
-    render "new"
+
+    respond_to do |format|
+      format.html { render "new" }
+      format.json {
+        render json: @player.to_json
+      }
+    end
   end
 
   private

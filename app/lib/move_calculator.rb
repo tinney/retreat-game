@@ -1,6 +1,6 @@
-class PlayerMover
-  BOARD_HEIGHT = 800 # NOTE this is also set in game.js
-  BOARD_WIDTH = 800 # NOTE this is also set in game.js
+class MoveCalculator
+  BOARD_HEIGHT = 400 # NOTE this is also set in game.js
+  BOARD_WIDTH = 400 # NOTE this is also set in game.js
   MOVE_AMOUNT = 10
 
   NORTH = 'NORTH'.freeze
@@ -9,7 +9,7 @@ class PlayerMover
   WEST = 'WEST'.freeze
 
   def self.calculate_move(current_x:, current_y:, direction:)
-    raise "unknown direction '#{direction}'" unless [NORTH, EAST, SOUTH, WEST].include?(direction.upcase!)
+    raise "unknown direction '#{direction}'" unless [NORTH, EAST, SOUTH, WEST].include?(direction)
 
     Location.new(x: calculate_x(current_x, direction), y: calculate_y(current_y, direction))
   end

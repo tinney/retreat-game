@@ -5,7 +5,7 @@ const PLAYER_SPRITES = "/assets/jake_sprites.png"
 
 const loader = new PIXI.Loader()
 const players_container = new PIXI.Container()
-const app = new PIXI.Application({ width: 800, height: 800, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1, });
+const app = new PIXI.Application({ width: 400, height: 400, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1, });
 
 window.app = app;
 window.players = [];

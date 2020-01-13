@@ -1,17 +1,12 @@
 class GameEngine
-  def self.take_turn(player, location)
-    player.update_location!(location)
-    handle_collisions(player)
-    update_stats(player)
-  end
+  def self.take_turn(player, direction)
+    location = MoveCalculator.calculate_move(current_x: player.x, current_y: player.y, direction: direction)
 
-  private
-  def self.handle_collisions(player)
-  end
-  
-  def self.update_stats(player)
-    # days lived
-    # active / inactive
+    player.update_location!(location)
+    location = Game.get_location(x: player.x, y: player.y)
+    GameColliderHandler.handle_collisions(player, location)
+    PlayerStatsUpdater.update_for_turn(player)
+    GameBroadcaster.broadcast_player_moved(player)
   end
 end
 

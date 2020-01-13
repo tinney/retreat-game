@@ -2,72 +2,80 @@
 #
 # Table name: players
 #
-#  id            :integer          not null, primary key
-#  name          :string           not null
-#  game_id       :integer
-#  water_stat    :integer          default(0)
-#  food_stat     :integer          default(0)
-#  movement_stat :integer          default(0)
-#  stamina_stat  :integer          default(0)
-#  active        :boolean
-#  days_active   :integer
-#  x_location    :integer
-#  y_location    :integer
-#  water_count   :integer
-#  food_count    :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-
-# I think I want to move these off
-#  active        :boolean
-#  days_active   :integer
-#  x_location    :integer
-#  y_location    :integer
-#  water_count   :integer
-#  food_count    :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                 :integer          not null, primary key
+#  team_id            :integer
+#  water_stat         :integer          default(0), not null
+#  food_stat          :integer          default(0), not null
+#  movement_stat      :integer          default(0), not null
+#  stamina_stat       :integer          default(0), not null
+#  active             :boolean
+#  days_active        :integer
+#  days_without_water :integer
+#  days_without_food  :integer
+#  water_count        :integer
+#  food_count         :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
 class Player < ApplicationRecord
-  validates :name, presence: true
-  validates :water_stat, :food_stat, :movement_stat, :stamina_stat, presence: true
-  validates_with PlayerValidator
-  has_many :attempts
-  has_one  :active_attempt, -> { where(active: true) }, :class_name=> "Attempt"
+  START_X = 0 
+  START_Y = 0 
 
-  after_create :start_attempt!
+  validates :team_id, :water_stat, :food_stat, :movement_stat, :stamina_stat, presence: true
+  validates_with PlayerValidator
+  belongs_to :team
+  has_many :moves
+
+  after_create :start_move!
+
+  def has_water?
+    water_count > 0
+  end
+  j
+  def has_food?
+    food_count > 0
+  end
+
+  def eat
+    return unless has_food?
+    self.food_count = food_count - 1
+  end
+
+  def drink 
+    return unless has_water?
+    self.water_count = water_count - 1
+  end
 
   def as_json(_)
     {
       id: id,
-      x_location: active_attempt.x_location,
-      y_location: active_attempt.y_location
+      x_location: x,
+      y_location: y,
     }
   end
 
-  def start_attempt!
-    Attempt.create!(player: self, active: true, days_active: 0, x_location: 0, y_location: 0, water_count: 5, food_count: 5)
+  def start_move!
+    self.moves.create!(x_location: START_X, y_location: START_Y)
   end
 
   def stat_total
     water_stat.to_i + food_stat.to_i + movement_stat.to_i + stamina_stat.to_i
   end
 
-  def max_age
-    active_attempt&.days_active || 0
-  end
-
   def update_location!(location)
-    active_attempt.update!(x_location: location.x, y_location: location.y)
+    moves.create!(x_location: location.x, y_location: location.y)
   end
 
   def x
-    active_attempt.x_location
+    moves.last.x_location
   end
   
   def y
-    active_attempt.y_location
+    moves.last.y_location
+  end
+
+  def increase_days_active!
+    update!(days_active: 1 + days_active)
   end
 end

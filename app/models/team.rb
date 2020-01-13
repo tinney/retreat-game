@@ -1,16 +1,19 @@
 # == Schema Information
 #
-# Table name: games
+# Table name: teams
 #
 #  id         :integer          not null, primary key
 #  name       :string           not null
-#  active     :boolean
+#  agent_1    :string           not null
+#  agent_2    :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Game < ApplicationRecord
-  def self.get_location(x:, y:)
-    Location.new(x: x, y: y)
+class Team < ApplicationRecord
+  has_many :players
+
+  def max_miles
+    20
   end
 end

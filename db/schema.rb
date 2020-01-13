@@ -12,18 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_11_27_040133) do
 
-  create_table "attempts", force: :cascade do |t|
-    t.integer "player_id"
-    t.boolean "active"
-    t.integer "days_active"
-    t.integer "x_location"
-    t.integer "y_location"
-    t.integer "water_count"
-    t.integer "food_count"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "games", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "active"
@@ -31,12 +19,34 @@ ActiveRecord::Schema.define(version: 2019_11_27_040133) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "moves", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "x_location"
+    t.integer "y_location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "players", force: :cascade do |t|
-    t.string "name", null: false
+    t.integer "team_id"
     t.integer "water_stat", default: 0, null: false
     t.integer "food_stat", default: 0, null: false
     t.integer "movement_stat", default: 0, null: false
     t.integer "stamina_stat", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.integer "days_active", default: 0, null: false
+    t.integer "days_without_water", default: 0, null: false
+    t.integer "days_without_food", default: 0, null: false
+    t.integer "water_count", default: 0, null: false
+    t.integer "food_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "agent_1", null: false
+    t.string "agent_2", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

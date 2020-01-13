@@ -4,7 +4,7 @@
     - @player.errors.full_messages.each do |error_message|
       %h4= error_message
 
-= form_for @player do |form|
+= form_for [@team, @player] do |form|
   = render 'form', f: form 
   %div
     = form.submit "Create"
