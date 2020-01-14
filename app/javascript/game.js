@@ -5,31 +5,38 @@ const PLAYER_SPRITES = "/assets/jake_sprites.png"
 
 const loader = new PIXI.Loader()
 const players_container = new PIXI.Container()
-const app = new PIXI.Application({ width: 400, height: 400, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1, });
+const resource_container = new PIXI.Container()
+
+// note game heights are duplicated
+const app = new PIXI.Application({ width: 600, height: 600, transparent: true, resolution: window.devicePixelRatio || 1, });
 
 window.app = app;
 window.players = [];
+window.resources = [];
 
-function setup(players) {
+function setup(players, resources) {
   document.body.appendChild(app.view);
   app.stage.addChild(players_container);
+  app.stage.addChild(resource_container);
   addPlayers(players)
+  addResources(resources)
 }
 
 function addPlayers(players) {
-  console.log(players)
   players.forEach(addPlayer)
 }
 
 function addPlayer(player) {
   // build the player from the texture
+  console.log("Adding player at x: " + player.x + " y: " + player.y)
+  console.log(player)
   let texture = PIXI.utils.TextureCache[PLAYER_SPRITES]; // load the texture
   texture.frame = new PIXI.Rectangle(12, 353, 30, 30) // crop to the sprite
   let sprite = new PIXI.Sprite(texture) 
 
   // Position on the canvas
-  sprite.height = 15
-  sprite.width = 15
+  sprite.height = 10
+  sprite.width = 10
   sprite.x = player.x
   sprite.y = player.y
 
@@ -37,10 +44,30 @@ function addPlayer(player) {
   window.players[player.id] = sprite
 }
 
+function addResources(resources) {
+  resources.forEach(addResource)
+}
+
+function addResource(resource) {
+  console.log("Adding resource at x: " + resource.x + " y: " + resource.y)
+  console.log(resource)
+
+  const sprite = PIXI.Sprite.from('/assets/water-sprite.png');
+
+  // // Position on the canvas
+  sprite.height = 10 
+  sprite.width = 10 
+  sprite.x = resource.x
+  sprite.y = resource.y
+
+  resource_container.addChild(sprite);
+  window.resources[resource.id] = sprite
+}
+
 window.addPlayer = addPlayer
-window.startGame = function(players) {
+window.startGame = function(players, resources) {
   const f = function() {
-    setup(players);
+    setup(players, resources);
   }
   loader.add(PLAYER_SPRITES).load(f);
 }

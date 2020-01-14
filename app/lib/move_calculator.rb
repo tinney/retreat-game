@@ -1,6 +1,6 @@
 class MoveCalculator
-  BOARD_HEIGHT = 400 # NOTE this is also set in game.js
-  BOARD_WIDTH = 400 # NOTE this is also set in game.js
+  BOARD_HEIGHT = 600 # NOTE this is also set in game.js
+  BOARD_WIDTH = 600 # NOTE this is also set in game.js
   MOVE_AMOUNT = 10
 
   NORTH = 'NORTH'.freeze

@@ -11,4 +11,15 @@
 #
 
 class Resource < ApplicationRecord
+  scope :active, -> { where(active: true) }
+
+  def as_json(_)
+    {
+      id: id,
+      x: x_location,
+      y: y_location,
+      water: true, # TODO to be real
+      food: false
+    }
+  end
 end

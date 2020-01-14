@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 2020_01_14_011432) do
 
   create_table "players", force: :cascade do |t|
     t.integer "team_id"
+    t.string "name"
     t.integer "water_stat", default: 0, null: false
     t.integer "food_stat", default: 0, null: false
-    t.integer "movement_stat", default: 0, null: false
     t.integer "stamina_stat", default: 0, null: false
     t.boolean "active", default: true, null: false
     t.integer "days_active", default: 0, null: false
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2020_01_14_011432) do
     t.integer "days_without_food", default: 0, null: false
     t.integer "water_count", default: 0, null: false
     t.integer "food_count", default: 0, null: false
+    t.integer "x_location", default: 0, null: false
+    t.integer "y_location", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
