@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_040133) do
+ActiveRecord::Schema.define(version: 2020_01_14_011432) do
 
   create_table "games", force: :cascade do |t|
     t.string "name", null: false
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 2019_11_27_040133) do
     t.integer "days_without_food", default: 0, null: false
     t.integer "water_count", default: 0, null: false
     t.integer "food_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.integer "x_location", default: 0, null: false
+    t.integer "y_location", default: 0, null: false
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

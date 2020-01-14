@@ -8,12 +8,12 @@
 #  food_stat          :integer          default(0), not null
 #  movement_stat      :integer          default(0), not null
 #  stamina_stat       :integer          default(0), not null
-#  active             :boolean
-#  days_active        :integer
-#  days_without_water :integer
-#  days_without_food  :integer
-#  water_count        :integer
-#  food_count         :integer
+#  active             :boolean          default(TRUE), not null
+#  days_active        :integer          default(0), not null
+#  days_without_water :integer          default(0), not null
+#  days_without_food  :integer          default(0), not null
+#  water_count        :integer          default(0), not null
+#  food_count         :integer          default(0), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
