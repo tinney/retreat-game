@@ -25,7 +25,7 @@ FactoryBot.define do
     association :team
     water_stat { 5 }
     food_stat { 5 } 
-    movement_stat { 3 }
+    #durability_stat 
     stamina_stat { 3 }
   end
 end

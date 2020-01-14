@@ -32,7 +32,7 @@ class PlayersController < ApplicationController
 
   private
   def player_params
-    params.require(:player).permit(:name, :water_stat, :food_stat, :movement_stat, :stamina_stat)
+    params.require(:player).permit(:name, :water_stat, :food_stat, :stamina_stat)
   end
 
   def team

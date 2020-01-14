@@ -9,7 +9,7 @@ RSpec.feature "Game movement", type: :request do
   end
 
   scenario "A Player can move across the board" do
-    player = create(:player)
+    player = create(:player, stamina_stat: 1)
 
     old_x = player.x
     old_y = player.y

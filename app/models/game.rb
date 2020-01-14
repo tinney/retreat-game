@@ -10,7 +10,7 @@
 #
 
 class Game < ApplicationRecord
-  def self.get_location(x:, y:)
-    Location.new(x: x, y: y)
+  def self.get_resources_at_location(x:, y:)
+    []
   end
 end
