@@ -13,8 +13,6 @@
 #
 
 class Resource < ApplicationRecord
-  MAX_AMOUNT = 1000
-
   scope :active, -> { where(active: true) }
   scope :on_x, -> (x) { where(x_location: x) }
   scope :on_y, -> (y) { where(y_location: y) }
@@ -34,7 +32,7 @@ class Resource < ApplicationRecord
   end
 
   def remove_resource!(amount_needed)
-    return MAX_AMOUNT if is_water?
+    return MAX_RESOURCE_AMOUNT if is_water?
 
     give_amount = [amount_needed, amount].min
 

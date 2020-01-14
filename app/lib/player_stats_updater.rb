@@ -1,6 +1,4 @@
 class PlayerStatsUpdater
-  MAX_DAYS_WITHOUT_WATER = 5
-  MAX_DAYS_WITHOUT_FOOD = 21
 
   def self.update_for_turn(player, location)
     player.moves.create!(x_location: location.x, y_location: location.y)

@@ -37,7 +37,7 @@ RSpec.feature "Game movement", type: :request do
   end
   
   scenario "A Player without water should no longer be active" do
-    player = create(:player, days_without_water: PlayerStatsUpdater::MAX_DAYS_WITHOUT_WATER, water_count: 0)
+    player = create(:player, days_without_water: MAX_DAYS_WITHOUT_WATER, water_count: 0)
     
     post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
 
@@ -47,7 +47,7 @@ RSpec.feature "Game movement", type: :request do
   end
 
   scenario "A Player without food should no longer be active" do
-    player = create(:player, days_without_food: PlayerStatsUpdater::MAX_DAYS_WITHOUT_FOOD, food_count: 0)
+    player = create(:player, days_without_food: MAX_DAYS_WITHOUT_FOOD, food_count: 0)
     
     post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
 

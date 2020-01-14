@@ -21,9 +21,6 @@
 #
 
 class Player < ApplicationRecord
-  START_X = 0 
-  START_Y = 0 
-
   validates :team_id, :water_stat, :food_stat, :stamina_stat, presence: true
   validates_with PlayerValidator
   belongs_to :team
