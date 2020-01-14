@@ -19,7 +19,6 @@ function setup(players) {
 function addPlayers(players) {
   console.log(players)
   players.forEach(addPlayer)
-
 }
 
 function addPlayer(player) {
@@ -31,13 +30,14 @@ function addPlayer(player) {
   // Position on the canvas
   sprite.height = 15
   sprite.width = 15
-  sprite.x = player.x_location
-  sprite.y = player.y_location
+  sprite.x = player.x
+  sprite.y = player.y
 
   players_container.addChild(sprite);
   window.players[player.id] = sprite
 }
 
+window.addPlayer = addPlayer
 window.startGame = function(players) {
   const f = function() {
     setup(players);

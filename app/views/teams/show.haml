@@ -1,4 +1,44 @@
-%h2= @team.name
-%h4= @team.agent_1
-%h4= @team.agent_2
-%h4= link_to "Create Player", new_team_player_path(@team)
+%h2
+%h4
+
+.row
+  .col
+    %h3
+      Team:
+      = @team.name
+  .col
+    .float-right
+      = link_to "Create Player", new_team_player_path(@team), class: 'btn btn-primary btn-sm'
+- if @team.players.empty?
+  .row
+    .col
+      = link_to "Create a player to get started", new_team_player_path(@team)
+-else
+  .row
+    .col
+      %h5 Players
+  .row
+    .col
+      %table.table
+        %thead
+          %th Location [x,y]
+          %th H20 Size
+          %th Backpack Size
+          %th Movement
+          %th Stamina
+          %th Days Survived
+          %th State
+        %tbody
+          - @team.players.each do |player|
+            %tr
+              %td== [#{player.x}, #{player.y}]
+              %td= player.water_stat
+              %td= player.food_stat
+              %td= player.movement_stat
+              %td= player.stamina_stat
+              %td= player.days_active
+              %td
+                -if player.active
+                  = link_to "😄", new_player_move_path(player)
+                - else
+                  ☠️

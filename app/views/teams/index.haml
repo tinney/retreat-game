@@ -1,21 +1,25 @@
-%h3 Teams
-%div= link_to 'New Team', new_team_path
-%table
-  %thead
-    %th Name
-    %th Agent 1
-    %th Agent 2
-    %th Max Miles
-    %th 
-    %th
-    %th
-  %tbody
-    - @teams.each do |team|
-      %tr
-        %td= team.name
-        %td= team.agent_1
-        %td= team.agent_2
-        %td= team.max_miles
-        %td= link_to "show", team_path(team)
-        %td= link_to "players", team_players_path(team)
-        %td= link_to "add player", new_team_player_path(team)
+.row
+  .col
+    %h3 Teams
+  .col
+    .float-right= link_to 'New Team', new_team_path, class: 'btn btn-primary btn-sm'
+.row
+  .col
+    %br
+.row
+  %table.table
+    %thead
+      %th ID
+      %th Name
+      %th Max Miles
+      %th Attempts
+      %th
+    %tbody
+      - @teams.each do |team|
+        %tr
+          %td
+            = team.id
+          %td= team.name
+          %td= team.max_miles
+          %td= team.players.count
+          %td= link_to "View", team_path(team), class: 'btn btn-primary btn-sm'

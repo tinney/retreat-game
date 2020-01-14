@@ -1,8 +1,19 @@
 class GameBroadcaster
+  def self.broadcast_player_created(player)
+    ActionCable.server.broadcast(
+      "players",
+      action: 'created',
+      id: player.id, 
+      x: player.x, 
+      y: player.y,
+    )
+  end
+  
   def self.broadcast_player_moved(player)
     ActionCable.server.broadcast(
       "players",
-      player_id: player.id, 
+      action: 'moved',
+      id: player.id, 
       x: player.x, 
       y: player.y,
     )

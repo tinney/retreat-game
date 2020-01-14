@@ -50,13 +50,13 @@ class Player < ApplicationRecord
   def as_json(_)
     {
       id: id,
-      x_location: x,
-      y_location: y,
+      x: x,
+      y: y,
     }
   end
 
   def start_move!
-    self.moves.create!(x_location: START_X, y_location: START_Y)
+    self.moves.create!(x_location: rand(MoveCalculator::BOARD_WIDTH), y_location: rand(MoveCalculator::BOARD_HEIGHT))
   end
 
   def stat_total
