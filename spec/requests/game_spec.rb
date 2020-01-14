@@ -24,8 +24,8 @@ RSpec.feature "Game movement", type: :request do
     expect(old_days_active).to be < player.days_active
   end
 
-  scenario "A Player days without food and water are updated when they have no food or water" do
-    player = create(:player, food_count: 0, water_count: 0)
+  scenario "A Player days_without_x (food/water) are updated when they have no food or water" do
+    player = create(:player, food_count: 0, water_count: 0, stamina_stat: 4)
     
     post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
 
@@ -54,5 +54,24 @@ RSpec.feature "Game movement", type: :request do
     player.reload
 
     expect(player.active).to be_falsy
+  end
+
+  scenario "A Player and a board are returned" do
+    player = create(:player, x_location: 20, y_location: 10, water_count: 1)
+
+    another_player = create(:player, :active, x_location: 20, y_location: 50)
+    inactive_player = create(:player, :inactive, x_location: 20, y_location: 50)
+    water_resource = create(:resource, :active, :water, x_location: 21, y_location: 20)
+    food_resource = create(:resource, :active, :food, x_location: 21, y_location: 20)
+    inactive_resource = create(:resource, :inactive, x_location: 20, y_location: 20)
+    
+    post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
+
+    parsed_response = JSON.parse(response.body)
+
+    expect(parsed_response['player']['x']).to equal(20)
+    expect(parsed_response['player']['y']).to equal(20) #starting y + move amount
+
+    expect(parsed_response['board'].size).to equal(3)
   end
 end

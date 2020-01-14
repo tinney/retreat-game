@@ -6,12 +6,17 @@ class MovesController < ApplicationController
 
   def create
     GameEngine.take_turn(player, direction.upcase)
+
     @player = player
+    @resources = Game.get_resources_around_player(@player)
 
     respond_to do |format|
       format.html { render "new" }
       format.json {
-        render json: @player.to_json
+        render json: {
+          player: @player,
+          board: @resources,
+        }
       }
     end
   end

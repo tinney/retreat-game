@@ -48,7 +48,10 @@ ActiveRecord::Schema.define(version: 2020_01_14_011432) do
   create_table "resources", force: :cascade do |t|
     t.integer "x_location", default: 0, null: false
     t.integer "y_location", default: 0, null: false
+    t.integer "amount", default: 1, null: false
     t.boolean "active", default: true, null: false
+    t.boolean "is_water", default: false, null: false
+    t.boolean "is_food", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

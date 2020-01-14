@@ -23,9 +23,23 @@
 FactoryBot.define do
   factory :player do
     association :team
+    name { 'Player 1' }
     water_stat { 5 }
     food_stat { 5 } 
-    #durability_stat 
     stamina_stat { 3 }
+    x_location { 10 }
+    y_location { 10 }
+    active { true }
+    water_count { 0 }
+    food_count { 0 }
+    #durability_stat 
+
+    trait :inactive do
+      active { false }
+    end
+
+    trait :active do
+      active { true }
+    end
   end
 end

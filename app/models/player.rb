@@ -29,7 +29,11 @@ class Player < ApplicationRecord
   belongs_to :team
   has_many :moves
 
-  after_create :start_move!
+  before_create :set_location
+
+  scope :active, -> { where(active: true) }
+  scope :on_x, -> (x) { where(x_location: x) }
+  scope :on_y, -> (y) { where(y_location: y) }
 
   def has_water?
     water_count > 0
@@ -54,11 +58,27 @@ class Player < ApplicationRecord
       id: id,
       x: x,
       y: y,
+      is_water: false,  #todo move these to a different presenter
+      is_food: false, 
+      is_player: true,
     }
   end
 
-  def start_move!
-    self.moves.create!(x_location: rand(MoveCalculator::BOARD_WIDTH), y_location: rand(MoveCalculator::BOARD_HEIGHT))
+  def set_location
+    if has_location? 
+      self.moves.build(x_location: x, y_location: y)
+    else
+      new_x = rand(MoveCalculator::BOARD_WIDTH) 
+      new_y = rand(MoveCalculator::BOARD_HEIGHT) 
+
+      self.moves.build(x_location: new_x, y_location: new_y)
+      self.x_location = new_x
+      self.y_location = new_y
+    end
+  end
+
+  def has_location?
+    x && y
   end
 
   def stat_total
@@ -78,5 +98,29 @@ class Player < ApplicationRecord
 
   def increase_days_active!
     update!(days_active: 1 + days_active)
+  end
+
+  def fill_water!(water_amount)
+    update!(water_count: [water_stat, water_count + water_amount].min)
+  end
+  
+  def fill_food!(food_amount)
+    update! food_count: [food_stat, food_count + food_amount].min
+  end
+
+  def food_amount_needed
+    food_stat - food_count
+  end
+
+  def is_water?
+    false
+  end
+  
+  def is_food?
+    false
+  end
+  
+  def is_player?
+    true
   end
 end
