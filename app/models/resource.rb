@@ -2,9 +2,10 @@
 #
 # Table name: resources
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  x_location :integer          default(0), not null
 #  y_location :integer          default(0), not null
+#  amount     :integer          default(1), not null
 #  active     :boolean          default(TRUE), not null
 #  is_water   :boolean          default(FALSE), not null
 #  is_food    :boolean          default(FALSE), not null

@@ -68,6 +68,7 @@ RSpec.feature "Game movement", type: :request do
     post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
 
     parsed_response = JSON.parse(response.body)
+    binding.pry
 
     expect(parsed_response['player']['x']).to equal(20)
     expect(parsed_response['player']['y']).to equal(20) #starting y + move amount

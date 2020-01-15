@@ -2,7 +2,7 @@
 #
 # Table name: players
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  team_id            :integer
 #  name               :string
 #  water_stat         :integer          default(0), not null

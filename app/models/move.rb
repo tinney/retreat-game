@@ -2,7 +2,7 @@
 #
 # Table name: moves
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  player_id  :integer
 #  x_location :integer
 #  y_location :integer

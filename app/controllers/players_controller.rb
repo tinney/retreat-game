@@ -5,7 +5,17 @@ class PlayersController < ApplicationController
 
     if @player.save 
       GameEngine.add_player(@player)
-      redirect_to team_players_path(@team, @player)
+
+      respond_to do |format|
+        format.html { redirect_to team_players_path(@team, @player) }
+        format.json {
+          @resources = Game.get_resources_around_player(@player)
+          render json: {
+            player: @player,
+            board: @resources,
+          }
+        }
+    end
     else
       render "new"
     end
@@ -32,7 +42,7 @@ class PlayersController < ApplicationController
 
   private
   def player_params
-    params.require(:player).permit(:name, :water_stat, :food_stat, :stamina_stat)
+    params.require(:player).permit(:name, :water_stat, :food_stat, :stamina_stat, :strength_stat)
   end
 
   def team

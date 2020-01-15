@@ -2,7 +2,7 @@
 #
 # Table name: teams
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string           not null
 #  agent_1    :string           not null
 #  agent_2    :string           not null
