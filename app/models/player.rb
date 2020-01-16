@@ -5,17 +5,18 @@
 #  id                 :bigint           not null, primary key
 #  team_id            :integer
 #  name               :string
-#  water_stat         :integer          default(0), not null
-#  food_stat          :integer          default(0), not null
-#  stamina_stat       :integer          default(0), not null
+#  water_stat         :integer          default(5), not null
+#  food_stat          :integer          default(5), not null
+#  stamina_stat       :integer          default(5), not null
+#  strength_stat      :integer          default(5), not null
 #  active             :boolean          default(TRUE), not null
 #  days_active        :integer          default(0), not null
 #  days_without_water :integer          default(0), not null
 #  days_without_food  :integer          default(0), not null
 #  water_count        :integer          default(0), not null
 #  food_count         :integer          default(0), not null
-#  x_location         :integer          default(0), not null
-#  y_location         :integer          default(0), not null
+#  x_location         :integer          not null
+#  y_location         :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
@@ -61,12 +62,24 @@ class Player < ApplicationRecord
     }
   end
 
+  def is_water?
+    false
+  end
+
+  def is_food?
+    false
+  end
+
+  def is_player?
+    true
+  end
+
   def set_location
     if has_location? 
       self.moves.build(x_location: x, y_location: y)
     else
-      new_x = rand(MoveCalculator::BOARD_WIDTH) 
-      new_y = rand(MoveCalculator::BOARD_HEIGHT) 
+      new_x = rand(BOARD_WIDTH) 
+      new_y = rand(BOARD_HEIGHT) 
 
       self.moves.build(x_location: new_x, y_location: new_y)
       self.x_location = new_x
