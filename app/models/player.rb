@@ -28,6 +28,7 @@ class Player < ApplicationRecord
   has_many :moves
 
   before_create :set_location
+  before_create :set_resources
 
   scope :active, -> { where(active: true) }
   scope :on_x, -> (x) { where(x_location: x) }
@@ -51,17 +52,6 @@ class Player < ApplicationRecord
     self.water_count = water_count - 1
   end
 
-  def as_json(_)
-    {
-      id: id,
-      x: x,
-      y: y,
-      is_water: false,  #todo move these to a different presenter
-      is_food: false, 
-      is_player: true,
-    }
-  end
-
   def is_water?
     false
   end
@@ -75,16 +65,14 @@ class Player < ApplicationRecord
   end
 
   def set_location
-    if has_location? 
-      self.moves.build(x_location: x, y_location: y)
-    else
-      new_x = rand(BOARD_WIDTH) 
-      new_y = rand(BOARD_HEIGHT) 
+    self.x_location ||= rand(BOARD_WIDTH)
+    self.y_location ||= rand(BOARD_HEIGHT)
+    self.moves.build(x_location: x_location, y_location: y_location)
+  end
 
-      self.moves.build(x_location: new_x, y_location: new_y)
-      self.x_location = new_x
-      self.y_location = new_y
-    end
+  def set_resources
+    self.food_count ||= self.food_stat
+    self.water_count ||= self.water_stat
   end
 
   def has_location?

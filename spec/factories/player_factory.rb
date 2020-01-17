@@ -27,13 +27,13 @@ FactoryBot.define do
     name { 'Player 1' }
     water_stat { 5 }
     food_stat { 5 } 
-    stamina_stat { 3 }
-    x_location { 10 }
-    y_location { 10 }
+    stamina_stat { 5 }
+    strength_stat { 5 }
     active { true }
-    water_count { 0 }
-    food_count { 0 }
-    #durability_stat 
+    x_location { nil }
+    y_location { nil }
+    water_count { nil }
+    food_count { nil }
 
     trait :inactive do
       active { false }

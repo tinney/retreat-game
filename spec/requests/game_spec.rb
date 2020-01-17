@@ -57,7 +57,14 @@ RSpec.feature "Game movement", type: :request do
   end
 
   scenario "A Player and a board are returned" do
-    player = create(:player, x_location: 20, y_location: 10, water_count: 1)
+    player = create(
+      :player,
+      x_location: 20,
+      y_location: 10,
+      food_stat: 4, 
+      water_stat: 5, 
+      stamina_stat: 1
+    )
 
     another_player = create(:player, :active, x_location: 20, y_location: 50)
     inactive_player = create(:player, :inactive, x_location: 20, y_location: 50)
@@ -68,10 +75,17 @@ RSpec.feature "Game movement", type: :request do
     post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
 
     parsed_response = JSON.parse(response.body)
-    binding.pry
+    player_params = parsed_response['player']
 
-    expect(parsed_response['player']['x']).to equal(20)
-    expect(parsed_response['player']['y']).to equal(20) #starting y + move amount
+    expect(player_params['x']).to equal(20)
+    expect(player_params['y']).to equal(20)
+    expect(player_params['active']).to be_truthy
+    expect(player_params['days_active']).to be(1)
+    expect(player_params['days_without_water']).to be(0)
+    expect(player_params['days_without_food']).to be(0)
+    
+    expect(player_params['water_count']).to be(4)
+    expect(player_params['food_count']).to be(3)
 
     expect(parsed_response['board'].size).to equal(3)
   end

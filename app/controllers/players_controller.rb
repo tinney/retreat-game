@@ -10,10 +10,17 @@ class PlayersController < ApplicationController
         format.html { redirect_to team_players_path(@team, @player) }
         format.json {
           @resources = Game.get_resources_around_player(@player)
-          render json: {
-            player: @player,
-            board: @resources,
-          }
+          render json: @player.as_json(
+            only: [
+              :water_count,
+              :food_count,
+              :days_without_water,
+              :days_without_food,
+              :active,
+              :days_active
+            ],
+            methods: [:x, :y]
+          )
         }
     end
     else

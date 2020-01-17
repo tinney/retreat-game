@@ -1,6 +1,6 @@
 %style
-  body { background-repeat: repeat; background-image: url("/assets/grass-background.png") }
-
+  == body { background-size: 60px; background-repeat: repeat; background-image: url("#{asset_url("grass-background.png")}")
+  
 - content_for :js do
   %script
     window.onload = function() { startGame(#{@players.to_json.html_safe}, #{@resources.to_json.html_safe}) }
