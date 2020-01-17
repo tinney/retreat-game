@@ -1,13 +1,13 @@
 # 💚 2020 Retreat
 
-Welcome to the Test Double 2020 Retreat Survival Game. 
+Welcome to the Test Double 2020 Retreat Pairing Challenge
 
-The object of the game is to survive the longest in the desert!  
+The object of the challenge is to write a bot which can find food and water to survive the longest
 
 
 ## Rules of the Game
 
-Teams will create players distributing 20 points across 4 stats, food, water, stamina and strength. 
+You and your teammate will move a player around the board looking for food, water and other agents. The team who's player survives the longest wins!
 Teams will then move players around the board to find water, food and other players.
 
 *The team who player survives the most days wins!*
@@ -17,14 +17,23 @@ Teams will then move players around the board to find water, food and other play
 Each team of 2 agents will write a "bot" to play the game by consuming a small retreat-game API. All teams will play on the same board. Teams can take multiple attempts adjusting their code or the player stats for each attempt.  There is no penatly for attemps and your longest surviving attempt will count toward your score. 
 
 ## Creating Players
+To create a player post to the players endpoint with your Team ID set in the request header. Each team can have 1 active player at a time. Creating a player will deactive any currently active player your team has. 
+
+
 
 ```Ruby
-function fancyAlert(arg) {
-  if(arg) {
-    $.facebox({div:'#foo'})
-  }
-}
+
 ```
+
+### Player Attributes
+*Distribute upto 20 points across these 4 stats*
+
+* Name - Name your player to help identify the iteration
+* Food `food_stat` - How many units of food you can carry at once.
+* Water `water_stat` - How many units of water you can carry at once.
+* Stamina `stamina_stat` - How often your player needs to eat food. 
+* Strength `strength_stat` - Used to determine outcome when sharing a space with an opponent.
+
 
 ### Stats
 
