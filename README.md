@@ -2,15 +2,14 @@
 
 Welcome to the Test Double 2020 Retreat Pairing Challenge
 
-The object of the challenge is to write a bot which can find food and water to survive the longest
+The object of the challenge is to survive the longest!
+
+
+## How to Play
+Teams of 2 will use the game engine API to create players and move around the board in search of food, water and other players. The team who has the longest living player by the end of the day will be the winner! 
 
 
 ## Rules of the Game
-
-You and your teammate will move a player around the board looking for food, water and other agents. The team who's player survives the longest wins!
-Teams will then move players around the board to find water, food and other players.
-
-*The team who player survives the most days wins!*
 
 ## Playing
 
@@ -19,8 +18,6 @@ Each team of 2 agents will write a "bot" to play the game by consuming a small r
 ## Creating Players
 To create a player post to the players endpoint with your Team ID set in the request header. Each team can have 1 active player at a time. Creating a player will deactive any currently active player your team has. 
 
-
-
 ```Ruby
 
 ```
@@ -28,7 +25,7 @@ To create a player post to the players endpoint with your Team ID set in the req
 ### Player Attributes
 *Distribute upto 20 points across these 4 stats*
 
-* Name - Name your player to help identify the iteration
+* Name - Name your player to help identify it's version. 
 * Food `food_stat` - How many units of food you can carry at once.
 * Water `water_stat` - How many units of water you can carry at once.
 * Stamina `stamina_stat` - How often your player needs to eat food. 
