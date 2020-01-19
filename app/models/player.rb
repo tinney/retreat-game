@@ -30,6 +30,9 @@ class Player < ApplicationRecord
   before_create :set_location
   before_create :set_resources
 
+  after_create :broadcast_create
+  after_update :broadcast_update
+
   scope :active, -> { where(active: true) }
   scope :on_x, -> (x) { where(x_location: x) }
   scope :on_y, -> (y) { where(y_location: y) }
@@ -128,5 +131,14 @@ class Player < ApplicationRecord
   
   def is_player?
     true
+  end
+
+  def broadcast_create
+    GameBroadcaster.broadcast_player_created(self)
+  end
+
+  def broadcast_update
+    GameBroadcaster.broadcast_player_moved(player)
+    GameBroadcaster.broadcast_player_destroyed(self) unless self.active?
   end
 end

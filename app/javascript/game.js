@@ -7,7 +7,7 @@ const players_container = new PIXI.Container()
 const resource_container = new PIXI.Container()
 
 // note game heights are duplicated
-const app = new PIXI.Application({ width: 600, height: 600, transparent: true, resolution: window.devicePixelRatio || 1, });
+const app = new PIXI.Application({ width: 200, height: 200, transparent: true, resolution: 10, });
 
 window.app = app;
 window.players = [];
@@ -30,7 +30,7 @@ function addPlayer(player) {
   console.log("Adding player at x: " + player.x + " y: " + player.y)
   console.log(player)
 
-  let sprite = new PIXI.Text('🚶', {fontSize: 12, align : 'center'})
+  let sprite = new PIXI.Text('🚶', {fontSize: 1, align : 'center'})
   sprite.x = player.x
   sprite.y = player.y
 
@@ -46,8 +46,12 @@ function addResource(resource) {
   console.log("Adding resource at x: " + resource.x + " y: " + resource.y)
   console.log(resource)
 
-  let sprite = new PIXI.Text('💧', {fontSize: 12, align : 'center'})
-
+  let sprite_text = '💧';
+  if (resource.is_food == true) {
+    sprite_text = '🌭';
+  }
+  
+  let sprite = new PIXI.Text(sprite_text, {fontSize: 1, align : 'center'})
   sprite.x = resource.x
   sprite.y = resource.y
 
@@ -56,6 +60,7 @@ function addResource(resource) {
 }
 
 window.addPlayer = addPlayer
+window.addResource = addResource
 window.startGame = function(players, resources) {
   const f = function() {
     setup(players, resources);

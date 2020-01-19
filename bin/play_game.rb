@@ -1,14 +1,12 @@
 require 'net/http'
 require 'uri'
 require 'json'
-
-
-
+require 'pry'
 
 #BASE_URL = "http://retreat-game.herokuapp.com"
 #TEAM_ID = "YOUR TEAM ID"
 
-TEAM_ID = "22"
+TEAM_ID = "44"
 
 BASE_URL = "http://localhost:3000/api"
 HEADERS = {'Content-Type' =>'application/json', 'TEAM' => TEAM_ID }
@@ -27,18 +25,44 @@ def make_request(api_endpoint, request_body)
     puts "failed #{e}"
 end
 
+def calcuclate_direction(x:, y:, board:)
+  if board.empty? # If there is nothing lets head either North or East
+    puts "No Resources heading either East or South"
+    return ["SOUTH", "EAST"].sample 
+  end
+
+  puts "Found resources"
+  resource = board.first
+  puts resource
+  
+  if resource['x'] == x # Resource is above or below us
+    if resource['y'] > y
+      "SOUTH"
+    else
+      "NORTH"
+    end
+  else
+    if resource['x'] > x
+      "EAST"
+    else
+      "WEST"
+    end
+  end
+end
+
 puts "Playing the game"
+
 puts "Creating a player"
 response = make_request("players", {name: "Player w/ EQ Stats", water_stat: 5, food_stat: 5, stamina_stat: 5, strength_stat: 5})
+puts response
 
-puts "Moving the player around"
+# puts "Moving the player around"
 
-active = true
-
-while(active)
-  direction = ["NORTH", "SOUTH", "EAST", "WEST"].sample(1).first
-  response = make_request("moves", { direction: "North" })
-  puts response
-  actve = response["player"]["active"]
-  sleep(0.5)
-end
+# active = true
+# while(active)
+#   response = make_request("moves", { direction: "North" })
+#   puts response
+#   direction = calcuclate_direction(x: response["player"]["x"], y: response["player"]["y"], board: response["board"])
+#   puts "Moving #{direction}"
+#   sleep(1)
+# end

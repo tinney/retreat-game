@@ -21,4 +21,10 @@ class Game < ApplicationRecord
     Resource.on_x(x).or(Resource.on_y(y)).active.all +
     Player.on_x(x).or(Player.on_y(y)).active.where.not(id: player.id).all
   end
+
+  def self.create_food_resource_at_location(x:, y:, amount:)
+    return if amount <= 0
+
+    Resource.create!(x: x, y: y, is_food: true, is_water: false, amount: amount)
+  end
 end

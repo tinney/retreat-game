@@ -9,8 +9,10 @@ class GameEngine
     resources = Game.get_resources_at_location(x: location.x, y: location.y)
     GameColliderHandler.handle_collisions(player, resources)
     PlayerStatsUpdater.update_for_turn(player, location)
-    GameBroadcaster.broadcast_player_moved(player)
-    GameBroadcaster.broadcast_player_died(player) unless player.active?
+
+    if !player.active?
+      Game.create_food_resource_at_location(x: player.x, y: player.y, amount: player.food_count)
+    end
   end
 end
 

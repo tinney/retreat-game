@@ -18,6 +18,9 @@ class Resource < ApplicationRecord
   scope :on_x, -> (x) { where(x_location: x) }
   scope :on_y, -> (y) { where(y_location: y) }
 
+  after_create :broadcast_create
+  after_update :broadcast_destroy
+
   def as_json(_)
     {
       id: id,
@@ -47,5 +50,21 @@ class Resource < ApplicationRecord
     save!
 
     return give_amount
+  end
+
+  def x
+    x_location
+  end
+
+  def y
+    y_location
+  end
+
+  def broadcast_create
+    GameBroadcaster.broadcast_resource_created(self)
+  end
+
+  def broadcast_destroy
+    GameBroadcaster.broadcast_resource_destroyed(self) unless self.active?
   end
 end

@@ -1,5 +1,9 @@
 %style
-  == body { background-size: 60px; background-repeat: repeat; background-image: url("#{asset_url("grass-background.png")}")
+  body {
+  background-size: 10px 10px;
+  background-image: radial-gradient(circle, #cccccc 1px, rgba(0, 0, 0, 0) 1px);
+  background-color: #f5e3ae
+  }
   
 - content_for :js do
   %script
