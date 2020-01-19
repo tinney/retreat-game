@@ -1,3 +1,4 @@
+# TODO this should go away
 class MovesController < ApplicationController
 
   def new
@@ -12,22 +13,6 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       format.html { render "new" }
-      format.json {
-        render json: {
-          player: @player.as_json(
-            only: [
-              :water_count,
-              :food_count,
-              :days_without_water,
-              :days_without_food,
-              :active,
-              :days_active
-            ],
-            methods: [:x, :y]
-          ),
-          board: @resources,
-        }
-      }
     end
   end
 
