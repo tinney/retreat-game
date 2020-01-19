@@ -3,4 +3,5 @@
   
 - content_for :js do
   %script
-    window.onload = function() { startGame(#{@players.to_json.html_safe}, #{@resources.to_json.html_safe}) }
+    window.PLAYER_SPRITES = "#{asset_url('/assets/jake_sprites.png')}"
+    window.onload = function() { startGame(#{@players_json.html_safe}, #{@resources.to_json.html_safe}) }

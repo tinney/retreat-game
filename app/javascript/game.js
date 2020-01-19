@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 
-const PLAYER_SPRITES = "/assets/jake_sprites.png"
 
 const loader = new PIXI.Loader()
 const players_container = new PIXI.Container()
@@ -30,7 +29,7 @@ function addPlayer(player) {
   // build the player from the texture
   console.log("Adding player at x: " + player.x + " y: " + player.y)
   console.log(player)
-  let texture = PIXI.utils.TextureCache[PLAYER_SPRITES]; // load the texture
+  let texture = PIXI.utils.TextureCache[window.PLAYER_SPRITES]; // load the texture
   texture.frame = new PIXI.Rectangle(12, 353, 30, 30) // crop to the sprite
   let sprite = new PIXI.Sprite(texture) 
 
@@ -52,7 +51,7 @@ function addResource(resource) {
   console.log("Adding resource at x: " + resource.x + " y: " + resource.y)
   console.log(resource)
 
-  const sprite = PIXI.Sprite.from('/assets/water-sprite.png');
+  const sprite = PIXI.Sprite.from(window.WATER_SPRITE);
 
   // // Position on the canvas
   sprite.height = 10 
