@@ -15,4 +15,8 @@ class Team < ApplicationRecord
     return 0 if players.empty?
     players.order(:days_active).last.days_active || 0
   end
+
+  def active_player
+    players.active.first
+  end
 end

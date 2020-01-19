@@ -5,24 +5,7 @@ class PlayersController < ApplicationController
 
     if @player.save 
       GameEngine.add_player(@player)
-
-      respond_to do |format|
-        format.html { redirect_to team_players_path(@team, @player) }
-        format.json {
-          @resources = Game.get_resources_around_player(@player)
-          render json: @player.as_json(
-            only: [
-              :water_count,
-              :food_count,
-              :days_without_water,
-              :days_without_food,
-              :active,
-              :days_active
-            ],
-            methods: [:x, :y]
-          )
-        }
-    end
+      redirect_to team_players_path(@team, @player)
     else
       render "new"
     end

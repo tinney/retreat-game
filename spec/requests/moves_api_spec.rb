@@ -1,21 +1,47 @@
 require "rails_helper"
 
-RSpec.feature "Game movement", type: :request do
+RSpec.feature "Moves API", type: :request do
   let(:headers) do
     {
       "ACCEPT" => "application/json",     # This is what Rails 4 accepts
-      "HTTP_ACCEPT" => "application/json" # This is what Rails 3 accepts
+      "HTTP_ACCEPT" => "application/json", # This is what Rails 3 accepts
+      "TEAM" => team_id 
     }
+  end
+  
+  let(:team) { create(:team) }
+  let(:team_id) { team.id }
+
+  context "Without a team id" do
+    let(:team_id) { nil }
+    
+    scenario "Raises an error without a team" do
+      post "/api/moves/", params: { direction: 'South' }, headers: headers
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['error']).to be_truthy
+      expect(parsed_response['error']).to eq("No Team ID passed in request header")
+    end
+  end
+
+  context "Without a active player" do
+    scenario "Raises an error without an active player" do
+      post "/api/moves/", params: { direction: 'South' }, headers: headers
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['error']).to be_truthy
+      expect(parsed_response['error']).to eq("You do not have an active player. Post to /api/players to create a new player.")
+    end
   end
 
   scenario "A Player can move across the board" do
-    player = create(:player, stamina_stat: 1)
+    player = create(:player, team: team, stamina_stat: 1)
 
     old_x = player.x
     old_y = player.y
     old_days_active = player.days_active
     
-    post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
+    post "/api/moves/", params: { direction: 'South' }, headers: headers
 
     player.reload
 
@@ -25,9 +51,9 @@ RSpec.feature "Game movement", type: :request do
   end
 
   scenario "A Player days_without_x (food/water) are updated when they have no food or water" do
-    player = create(:player, food_count: 0, water_count: 0, stamina_stat: 4)
+    player = create(:player, team: team, food_count: 0, water_count: 0, stamina_stat: 4)
     
-    post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
+    post "/api/moves/", params: { direction: 'South' }, headers: headers
 
     player.reload
 
@@ -37,9 +63,9 @@ RSpec.feature "Game movement", type: :request do
   end
   
   scenario "A Player without water should no longer be active" do
-    player = create(:player, days_without_water: MAX_DAYS_WITHOUT_WATER, water_count: 0)
+    player = create(:player, team: team, days_without_water: MAX_DAYS_WITHOUT_WATER, water_count: 0)
     
-    post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
+    post "/api/moves/", params: { direction: 'South' }, headers: headers
 
     player.reload
 
@@ -47,9 +73,9 @@ RSpec.feature "Game movement", type: :request do
   end
 
   scenario "A Player without food should no longer be active" do
-    player = create(:player, days_without_food: MAX_DAYS_WITHOUT_FOOD, food_count: 0)
+    player = create(:player, team: team, days_without_food: MAX_DAYS_WITHOUT_FOOD, food_count: 0)
     
-    post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
+    post "/api/moves/", params: { direction: 'South' }, headers: headers
 
     player.reload
 
@@ -59,6 +85,7 @@ RSpec.feature "Game movement", type: :request do
   scenario "A Player and a board are returned" do
     player = create(
       :player,
+      team: team,
       x_location: 20,
       y_location: 10,
       food_stat: 4, 
@@ -72,7 +99,7 @@ RSpec.feature "Game movement", type: :request do
     food_resource = create(:resource, :active, :food, x_location: 21, y_location: 20)
     inactive_resource = create(:resource, :inactive, x_location: 20, y_location: 20)
     
-    post "/players/#{player.id}/moves/", params: { direction: 'South' }, headers: headers
+    post "/api/moves/", params: { direction: 'South' }, headers: headers
 
     parsed_response = JSON.parse(response.body)
     player_params = parsed_response['player']

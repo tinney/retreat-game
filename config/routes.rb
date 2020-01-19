@@ -9,5 +9,10 @@ Rails.application.routes.draw do
     resources :moves, only: [:create, :new]
   end
 
+  namespace 'api' do
+    resources :players, only: [:create, :show]
+    resources :moves, only:   [:create]
+  end
+
   root to: 'games#index'
 end
