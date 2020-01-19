@@ -6,8 +6,6 @@ RSpec.feature "Create Player", type: :feature do
     click_link "New Team"
 
     fill_in "Name", :with => "Tom & Jerry"
-    fill_in "Agent 1", :with => "Tom"
-    fill_in "Agent 2", :with => "Jerry"
     click_button "Create"
 
     expect(page).to have_text("Tom & Jerry")

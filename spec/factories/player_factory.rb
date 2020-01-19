@@ -5,16 +5,16 @@
 #  id                 :bigint           not null, primary key
 #  team_id            :integer
 #  name               :string
-#  water_stat         :integer          default(5), not null
-#  food_stat          :integer          default(5), not null
-#  stamina_stat       :integer          default(5), not null
-#  strength_stat      :integer          default(5), not null
+#  water_stat         :integer          not null
+#  food_stat          :integer          not null
+#  stamina_stat       :integer          not null
+#  strength_stat      :integer          not null
 #  active             :boolean          default(TRUE), not null
 #  days_active        :integer          default(0), not null
 #  days_without_water :integer          default(0), not null
 #  days_without_food  :integer          default(0), not null
-#  water_count        :integer          default(0), not null
-#  food_count         :integer          default(0), not null
+#  water_count        :integer          not null
+#  food_count         :integer          not null
 #  x_location         :integer          not null
 #  y_location         :integer          not null
 #  created_at         :datetime         not null

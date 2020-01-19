@@ -5,16 +5,16 @@
 #  id                 :bigint           not null, primary key
 #  team_id            :integer
 #  name               :string
-#  water_stat         :integer          default(5), not null
-#  food_stat          :integer          default(5), not null
-#  stamina_stat       :integer          default(5), not null
-#  strength_stat      :integer          default(5), not null
+#  water_stat         :integer          not null
+#  food_stat          :integer          not null
+#  stamina_stat       :integer          not null
+#  strength_stat      :integer          not null
 #  active             :boolean          default(TRUE), not null
 #  days_active        :integer          default(0), not null
 #  days_without_water :integer          default(0), not null
 #  days_without_food  :integer          default(0), not null
-#  water_count        :integer          default(0), not null
-#  food_count         :integer          default(0), not null
+#  water_count        :integer          not null
+#  food_count         :integer          not null
 #  x_location         :integer          not null
 #  y_location         :integer          not null
 #  created_at         :datetime         not null
@@ -104,6 +104,14 @@ class Player < ApplicationRecord
   
   def fill_food!(food_amount)
     update! food_count: [food_stat, food_count + food_amount].min
+  end
+
+  def remove_food!(amount_needed)
+    give_amount = [amount_needed, food_count].min
+    new_food_count = [0, (food_count - give_amount)].max
+
+    update!(food_count: new_food_count)
+    return give_amount
   end
 
   def food_amount_needed

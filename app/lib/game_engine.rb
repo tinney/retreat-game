@@ -10,6 +10,7 @@ class GameEngine
     GameColliderHandler.handle_collisions(player, resources)
     PlayerStatsUpdater.update_for_turn(player, location)
     GameBroadcaster.broadcast_player_moved(player)
+    GameBroadcaster.broadcast_player_died(player) unless player.active?
   end
 end
 
