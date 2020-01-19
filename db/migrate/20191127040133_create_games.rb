@@ -8,8 +8,6 @@ class CreateGames < ActiveRecord::Migration[6.0]
 
     create_table :teams do |t|
       t.string :name, null: false
-      t.string :agent_1, null: false
-      t.string :agent_2, null: false
       t.timestamps
     end
 

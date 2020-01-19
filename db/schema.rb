@@ -62,8 +62,6 @@ ActiveRecord::Schema.define(version: 2020_01_14_011432) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
-    t.string "agent_1", null: false
-    t.string "agent_2", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
