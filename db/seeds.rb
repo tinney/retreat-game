@@ -27,6 +27,7 @@ Team.create!(name: "Marc Peabody & Steve Jackson")
 Team.create!(name: "Micah Adams & Chris Caragianis")
 Team.create!(name: "Nate Kandler & Neal Lindsay")
 Team.create!(name: "Ross Brandes & Tommy Groshong")
+
 Team.create!(name: "Extra Team 1")
 Team.create!(name: "Extra Team 2")
 Team.create!(name: "Extra Team 3")
