@@ -9,7 +9,7 @@ consumer.subscriptions.create({ channel: "PlayersChannel" }, {
 
     if (data.action === 'created') {
       if (data.is_player === true) {
-        console.log("adding player")
+        console.log("Adding player")
         window.addPlayer(data)
       } else {
         console.log("adding resource")
@@ -28,7 +28,9 @@ consumer.subscriptions.create({ channel: "PlayersChannel" }, {
     }
 
     window.app.ticker.add((delta) => {
-      window.movePlayer(data.id, data.x, data.y) 
+      if (data.action === "moved") {
+          window.movePlayer(data.id, data.x, data.y) 
+      }
     });
   },
 })

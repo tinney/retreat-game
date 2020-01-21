@@ -82,6 +82,8 @@ RSpec.feature "Moves API", type: :request do
     expect(player.active).to be_falsy
   end
 
+
+
   scenario "A Player and a board are returned" do
     player = create(
       :player,
@@ -115,5 +117,72 @@ RSpec.feature "Moves API", type: :request do
     expect(player_params['food_count']).to be(3)
 
     expect(parsed_response['board'].size).to equal(3)
+  end
+
+
+
+  scenario "Update days without food/water and food/water counts when finding a resource" do
+    food_amount = 2 
+    water_stat = 5
+    food_stat = 1
+
+    player = create(
+      :player,
+      team: team,
+      food_count: 0,
+      water_count: 0,
+      days_without_food: 10,
+      days_without_water: 0,
+      x_location: 0,
+      y_location: 0,
+      food_stat: food_stat,
+      water_stat: water_stat, 
+      stamina_stat: 1
+    )
+
+    food_resource = create(:resource, :active, :food, amount: food_amount, x_location: 1, y_location: 0)
+    water_resource = create(:resource, :active, :water, x_location: 2, y_location: 0)
+    
+    post "/api/moves/", params: { direction: 'East' }, headers: headers
+    parsed_response = JSON.parse(response.body)
+    player_params = parsed_response['player']
+
+    expect(player_params['x']).to equal(1)
+    expect(player_params['y']).to equal(0)
+    expect(player_params['active']).to be_truthy
+    expect(player_params['days_active']).to be(1)
+    expect(player_params['days_without_water']).to be(1)
+    expect(player_params['days_without_food']).to be(0) # reset to 0 days
+    expect(player_params['water_count']).to be(0)
+    expect(player_params['food_count']).to be(0) # refilled but then consumed
+    expect(parsed_response['board'].size).to equal(2)
+
+    post "/api/moves/", params: { direction: 'East' }, headers: headers
+    parsed_response = JSON.parse(response.body)
+    player_params = parsed_response['player']
+
+    expect(player_params['x']).to equal(2)
+    expect(player_params['y']).to equal(0)
+    expect(player_params['active']).to be_truthy
+    expect(player_params['days_active']).to be(2)
+    expect(player_params['days_without_water']).to be(0)
+    expect(player_params['days_without_food']).to be(1) # updated to 1 day
+    expect(player_params['water_count']).to be(water_stat - 1)
+    expect(player_params['food_count']).to be(0)
+    expect(parsed_response['board'].size).to equal(2)
+
+    post "/api/moves/", params: { direction: 'West' }, headers: headers
+    parsed_response = JSON.parse(response.body)
+    player_params = parsed_response['player']
+
+    expect(player_params['x']).to equal(1)
+    expect(player_params['y']).to equal(0)
+    expect(player_params['active']).to be_truthy
+    expect(player_params['days_active']).to be(3)
+    expect(player_params['days_without_water']).to be(0) 
+    expect(player_params['days_without_food']).to be(0) # reset back to 0 days
+    expect(player_params['water_count']).to be(water_stat - 2)
+    expect(player_params['food_count']).to be(0) # found food but then ate it
+    expect(parsed_response['board'].size).to equal(1)
   end
 end

@@ -37,7 +37,7 @@ class GameBroadcaster
   end
 
   def self.broadcast_resource_destroyed(resource)
-    log "resource destoryed"
+    log "resource destroyed"
     ActionCable.server.broadcast(
       "players",
       action: 'destroyed',
@@ -49,7 +49,7 @@ class GameBroadcaster
   end
 
   def self.broadcast_player_died(player)
-    log "player destoryed"
+    log "broadcast player destroyed"
     ActionCable.server.broadcast(
       "players",
       action: 'destroyed',
@@ -61,7 +61,7 @@ class GameBroadcaster
   end
   
   def self.broadcast_player_moved(player)
-    log "player moved"
+    log "broadcast player moved"
     ActionCable.server.broadcast(
       "players",
       action: 'moved',

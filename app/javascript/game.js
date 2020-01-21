@@ -52,12 +52,12 @@ function addResources(resources) {
 
 function removeResource(id) {
   let resource = window.resources[id]
-  resource_container.addChild(resource);
+  resource_container.removeChild(resource);
 }
 
 function removePlayer(id) {
   let resource = window.players[id]
-  resource_container.addChild(resource);
+  resource_container.removeChild(resource);
 }
 
 function addResource(resource) {
