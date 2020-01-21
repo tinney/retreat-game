@@ -32,7 +32,7 @@
           %th w/o 🌭
           %th Moves
         %tbody
-          - @team.players.each do |player|
+          - @team.players.order(:created_at).each do |player|
             %tr
               %td== #{player.x}, #{player.y}
               %td= player.water_stat

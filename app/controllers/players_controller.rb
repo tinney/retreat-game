@@ -1,10 +1,12 @@
 class PlayersController < ApplicationController
   def create
     @team = team
+    active_player = @team.active_player
     @player = @team.players.new(player_params)
 
     if @player.save 
-      redirect_to team_players_path(@team, @player)
+      active_player&.update(active: false)
+      redirect_to team_path(@team)
     else
       render "new"
     end
