@@ -34,6 +34,6 @@ Team.create!(name: "Extra Team 3")
 
 
 20.times do
-  Resource.create!(x_location: rand(BOARD_WIDTH), y_location: rand(BOARD_HEIGHT), active: true, is_water: true, is_food: false)
-  Resource.create!(x_location: rand(BOARD_WIDTH), y_location: rand(BOARD_HEIGHT), amount: 100, active: true, is_water: false, is_food: true)
+  Resource.create!(x_location: rand(1...BOARD_WIDTH), y_location: rand(1...BOARD_HEIGHT), active: true, is_water: true, is_food: false)
+  Resource.create!(x_location: rand(1...BOARD_WIDTH), y_location: rand(1...BOARD_HEIGHT), amount: rand(1..MAX_FOOD_AMOUNT), active: true, is_water: false, is_food: true)
 end

@@ -27,4 +27,12 @@ class Game < ApplicationRecord
 
     Resource.create!(x_location: x, y_location: y, is_food: true, is_water: false, amount: amount)
   end
+  
+  def self.create_random_food_resource
+    x_location = rand(1...BOARD_WIDTH)
+    y_location = rand(1...BOARD_HEIGHT)
+    amount = rand(MAX_FOOD_AMOUNT)
+
+    Resource.create!(x_location: x_location, y_location: y_location, is_food: true, is_water: false, amount: amount)
+  end
 end

@@ -19,7 +19,7 @@ class Resource < ApplicationRecord
   scope :on_y, -> (y) { where(y_location: y) }
 
   after_create :broadcast_create
-  after_update :broadcast_destroy
+  after_update :broadcast_update
 
   def as_json(_)
     {
@@ -64,7 +64,10 @@ class Resource < ApplicationRecord
     GameBroadcaster.broadcast_resource_created(self)
   end
 
-  def broadcast_destroy
-    GameBroadcaster.broadcast_resource_destroyed(self) unless self.active?
+  def broadcast_update
+    unless self.active?
+      Game.create_random_food_resource
+      GameBroadcaster.broadcast_resource_destroyed(self)
+    end
   end
 end
