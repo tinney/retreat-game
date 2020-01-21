@@ -25,6 +25,6 @@ class Game < ApplicationRecord
   def self.create_food_resource_at_location(x:, y:, amount:)
     return if amount <= 0
 
-    Resource.create!(x: x, y: y, is_food: true, is_water: false, amount: amount)
+    Resource.create!(x_location: x, y_location: y, is_food: true, is_water: false, amount: amount)
   end
 end

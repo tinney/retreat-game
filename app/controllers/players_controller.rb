@@ -4,7 +4,6 @@ class PlayersController < ApplicationController
     @player = @team.players.new(player_params)
 
     if @player.save 
-      GameEngine.add_player(@player)
       redirect_to team_players_path(@team, @player)
     else
       render "new"

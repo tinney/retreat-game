@@ -95,8 +95,8 @@ RSpec.feature "Moves API", type: :request do
 
     another_player = create(:player, :active, x_location: 20, y_location: 50)
     inactive_player = create(:player, :inactive, x_location: 20, y_location: 50)
-    water_resource = create(:resource, :active, :water, x_location: 21, y_location: 20)
-    food_resource = create(:resource, :active, :food, x_location: 21, y_location: 20)
+    water_resource = create(:resource, :active, :water, x_location: 22, y_location: 11)
+    food_resource = create(:resource, :active, :food, x_location: 22, y_location: 11)
     inactive_resource = create(:resource, :inactive, x_location: 20, y_location: 20)
     
     post "/api/moves/", params: { direction: 'South' }, headers: headers
@@ -105,7 +105,7 @@ RSpec.feature "Moves API", type: :request do
     player_params = parsed_response['player']
 
     expect(player_params['x']).to equal(20)
-    expect(player_params['y']).to equal(20)
+    expect(player_params['y']).to equal(11)
     expect(player_params['active']).to be_truthy
     expect(player_params['days_active']).to be(1)
     expect(player_params['days_without_water']).to be(0)

@@ -20,15 +20,15 @@ consumer.subscriptions.create({ channel: "PlayersChannel" }, {
     if (data.action === "destroyed") {
       if (data.is_player) {
         console.log("removing player")
-        window.removePlayer(data)
+        window.removePlayer(data.id)
       } else {
         console.log("removing resource")
-        window.removeResource(data)
+        window.removeResource(data.id)
       }
     }
 
     window.app.ticker.add((delta) => {
-      window.players[data.id].position.set(data.x, data.y)
+      window.movePlayer(data.id, data.x, data.y) 
     });
   },
 })

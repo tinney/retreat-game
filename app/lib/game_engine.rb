@@ -1,8 +1,4 @@
 class GameEngine
-  def self.add_player(player)
-    GameBroadcaster.broadcast_player_created(player)
-  end
-
   def self.take_turn(player, direction)
     location = MoveCalculator.calculate_move(current_x: player.x, current_y: player.y, direction: direction)
 

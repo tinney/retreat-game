@@ -4,8 +4,6 @@ class Api::PlayersController < Api::ApplicationController
     player = team.players.new(player_params)
 
     if player.save 
-      GameEngine.add_player(player)
-
       respond_to do |format|
         format.json {
           #resources = resources_for_player(player),
