@@ -138,7 +138,7 @@ class Player < ApplicationRecord
   end
 
   def broadcast_update
-    GameBroadcaster.broadcast_player_moved(self)
+    GameBroadcaster.broadcast_player_moved(self) if self.active?
     GameBroadcaster.broadcast_player_died(self) unless self.active?
   end
 end

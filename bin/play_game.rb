@@ -6,7 +6,7 @@ require 'pry'
 #BASE_URL = "http://retreat-game.herokuapp.com"
 #TEAM_ID = "YOUR TEAM ID"
 
-TEAM_ID = "44"
+TEAM_ID = "1"
 
 BASE_URL = "http://localhost:3000/api"
 HEADERS = {'Content-Type' =>'application/json', 'TEAM' => TEAM_ID }
@@ -20,7 +20,7 @@ def make_request(api_endpoint, request_body)
   res = http.request(req)
 
   return JSON.parse(res.body)
-  
+
   rescue => e
     puts "failed #{e}"
 end
@@ -28,13 +28,13 @@ end
 def calcuclate_direction(x:, y:, board:)
   if board.empty? # If there is nothing lets head either North or East
     puts "No Resources heading either East or South"
-    return ["SOUTH", "EAST"].sample 
+    return ["SOUTH", "EAST"].sample
   end
 
   puts "Found resources"
   resource = board.first
   puts resource
-  
+
   if resource['x'] == x # Resource is above or below us
     if resource['y'] > y
       "SOUTH"
@@ -51,10 +51,12 @@ def calcuclate_direction(x:, y:, board:)
 end
 
 puts "Playing the game"
-
-puts "Creating a player"
-response = make_request("players", {name: "Player w/ EQ Stats", water_stat: 5, food_stat: 5, stamina_stat: 5, strength_stat: 5})
-puts response
+10.times do
+  puts "Creating a player"
+  response = make_request("players", {name: "Player w/ EQ Stats", water_stat: 5, food_stat: 5, stamina_stat: 5, strength_stat: 5})
+  puts response
+  sleep(3)
+end
 
 # puts "Moving the player around"
 

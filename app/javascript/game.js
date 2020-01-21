@@ -19,8 +19,8 @@ window.resources = [];
 
 function setup(players, resources) {
   document.body.appendChild(app.view);
-  app.stage.addChild(players_container);
   app.stage.addChild(resource_container);
+  app.stage.addChild(players_container);
   addPlayers(players)
   addResources(resources)
 }
@@ -30,6 +30,7 @@ function addPlayers(players) {
 }
 
 function movePlayer(id, x, y) {
+  console.log("moving player: " + id)
   window.players[id].position.set(x * BOARD_MULTIPLIER, y * BOARD_MULTIPLIER)
 }
 
@@ -51,13 +52,15 @@ function addResources(resources) {
 }
 
 function removeResource(id) {
-  let resource = window.resources[id]
+  let resource = window.resources[id];
+  window.resources[id] = null;
   resource_container.removeChild(resource);
 }
 
 function removePlayer(id) {
   let resource = window.players[id]
-  resource_container.removeChild(resource);
+  window.players[id] = null;
+  players_container.removeChild(resource);
 }
 
 function addResource(resource) {

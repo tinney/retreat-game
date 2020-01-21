@@ -1,15 +1,5 @@
 class GameBroadcaster
-  def self.log(message)
-    return unless Rails.env.development?
-    puts "=" * 100 
-    puts "=" * 100 
-    puts message 
-    puts "=" * 100 
-    puts "=" * 100 
-  end
-
   def self.broadcast_player_created(player)
-    log "broadcast player created"
     ActionCable.server.broadcast(
       "players",
       action: 'created',
@@ -23,7 +13,6 @@ class GameBroadcaster
   end
 
   def self.broadcast_resource_created(resource)
-    log "broadcasting resource created"
     ActionCable.server.broadcast(
       "players",
       action: 'created',
@@ -37,7 +26,6 @@ class GameBroadcaster
   end
 
   def self.broadcast_resource_destroyed(resource)
-    log "resource destroyed"
     ActionCable.server.broadcast(
       "players",
       action: 'destroyed',
@@ -49,7 +37,6 @@ class GameBroadcaster
   end
 
   def self.broadcast_player_died(player)
-    log "broadcast player destroyed"
     ActionCable.server.broadcast(
       "players",
       action: 'destroyed',
@@ -61,7 +48,6 @@ class GameBroadcaster
   end
   
   def self.broadcast_player_moved(player)
-    log "broadcast player moved"
     ActionCable.server.broadcast(
       "players",
       action: 'moved',

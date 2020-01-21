@@ -1,7 +1,5 @@
 import consumer from "./consumer"
 
-console.log("got the consumer for player");
-
 consumer.subscriptions.create({ channel: "PlayersChannel" }, {
   received(data) {
     console.log("Received:");

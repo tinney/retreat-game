@@ -2,10 +2,12 @@
 class MovesController < ApplicationController
 
   def new
+    render(json: {error: "Player not active."}, :status => :bad_request) and return unless player.active?
     @player = player
   end
 
   def create
+    render(json: {error: "Player not active."}, :status => :bad_request) and return unless player.active?
     GameEngine.take_turn(player, direction.upcase)
 
     @player = player
