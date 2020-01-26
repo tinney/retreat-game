@@ -1,5 +1,5 @@
-  BOARD_HEIGHT = 40 # NOTE this is also set in game.js
   BOARD_WIDTH = 40 # NOTE this is also set in game.js
+  BOARD_HEIGHT = 30 # NOTE this is also set in game.js
   MOVE_AMOUNT = 1 
 
   NORTH = 'NORTH'.freeze

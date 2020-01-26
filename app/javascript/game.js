@@ -6,7 +6,7 @@ const loader = new PIXI.Loader()
 const players_container = new PIXI.Container()
 const resource_container = new PIXI.Container()
 const BOARD_WIDTH = 40
-const BOARD_HEIGHT = 40
+const BOARD_HEIGHT = 30
 const BOARD_MULTIPLIER = 20
 
 // note game heights are duplicated
@@ -30,16 +30,11 @@ function addPlayers(players) {
 }
 
 function movePlayer(id, x, y) {
-  console.log("moving player: " + id)
   window.players[id].position.set(x * BOARD_MULTIPLIER, y * BOARD_MULTIPLIER)
 }
 
 function addPlayer(player) {
-  // build the player from the texture
-  console.log("Adding player at x: " + player.x + " y: " + player.y)
-  console.log(player)
-
-  let sprite = new PIXI.Text('🚶', {fontSize: 10, align : 'center'})
+  let sprite = new PIXI.Text('💃', {fontSize: 10, align : 'center'})
   sprite.x = player.x * BOARD_MULTIPLIER
   sprite.y = player.y * BOARD_MULTIPLIER
 
@@ -64,12 +59,9 @@ function removePlayer(id) {
 }
 
 function addResource(resource) {
-  console.log("Adding resource at x: " + resource.x + " y: " + resource.y)
-  console.log(resource)
-
   let sprite_text = '💧';
   if (resource.is_food == true) {
-    sprite_text = '🌭';
+    sprite_text = '🍒';
   }
   
   let sprite = new PIXI.Text(sprite_text, {fontSize: 10, align : 'center'})

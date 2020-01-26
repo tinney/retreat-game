@@ -9,8 +9,9 @@ Rails.application.routes.draw do
     resources :moves, only: [:create, :new]
   end
 
+  match 'api/player' => 'api/players#show', :via => :get
   namespace 'api' do
-    resources :players, only: [:create, :show]
+    resources :players, only: [:create]
     resources :moves, only:   [:create]
   end
 

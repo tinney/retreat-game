@@ -1,8 +1,12 @@
 %style
-  canvas {
+  zcanvas {
   background-color: #f5e3ae;
   background-size: 40px 40px;
   background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+  }
+  
+  canvas {
+  background-image: url('#{asset_url("/assets/dirt.png")}');
   }
   
 - content_for :js do

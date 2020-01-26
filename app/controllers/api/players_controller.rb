@@ -1,4 +1,29 @@
 class Api::PlayersController < Api::ApplicationController
+  def show
+    player = team.active_player
+    respond_to do |format|
+      format.json {
+        render(json: { error: "no active player for team: #{team.name} #{team.id}" }, status: :bad_request) and return unless player
+        
+        resources = Game.get_resources_around_player(player)
+        render json: { 
+          player: player.as_json(
+            only: [
+              :water_count,
+              :food_count,
+              :days_without_water,
+              :days_without_food,
+              :active,
+              :days_active
+            ],
+            methods: [:x, :y]
+          ),
+          board: resources,
+        }
+      }
+    end
+  end
+  
   def create
     active_player = team.active_player
     player = team.players.new(player_params)
@@ -32,27 +57,6 @@ class Api::PlayersController < Api::ApplicationController
           render(json: { error: player.errors.full_messages.join(', ') }, status: :bad_request)
         }
       end
-    end
-  end
-
-  def show
-    player = team.players.find(params[:id])
-
-    respond_to do |format|
-      format.json {
-        #resources = resources_for_player(player),
-        render json: player.as_json(
-          only: [
-            :water_count,
-            :food_count,
-            :days_without_water,
-            :days_without_food,
-            :active,
-            :days_active
-          ],
-          methods: [:x, :y]
-        )
-      }
     end
   end
 

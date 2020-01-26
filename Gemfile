@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'redis', '~> 4.0'
 
 group :production do
   # Use Redis adapter to run Action Cable in production
