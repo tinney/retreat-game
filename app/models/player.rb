@@ -44,6 +44,13 @@ class Player < ApplicationRecord
   def has_food?
     food_count > 0
   end
+  
+  def as_json(options = {})
+    super({
+      only: [],
+      methods: [:x, :y, :is_water?, :is_food?, :is_player?]
+    }.merge(options))
+  end
 
   def eat
     return unless has_food?

@@ -20,19 +20,24 @@ class Resource < ApplicationRecord
 
   after_create :broadcast_create
   after_update :broadcast_update
-
-  def as_json(_)
-    {
-      id: id,
-      x: x_location,
-      y: y_location,
-      is_water: is_water,
-      is_food: is_food,
-    }
+  
+  def as_json(options = {})
+    super({
+      only: [],
+      methods: [:x, :y, :is_water?, :is_food?, :is_player?]
+    }.merge(options))
   end
 
   def is_player?
     false
+  end
+
+  def x
+    x_location
+  end
+
+  def y
+    y_location
   end
 
   def remove_resource!(amount_needed)

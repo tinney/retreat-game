@@ -34,7 +34,6 @@ class Api::PlayersController < Api::ApplicationController
 
       respond_to do |format|
         format.json {
-          #resources = resources_for_player(player),
           render json: { 
             player: player.as_json(
               only: [
