@@ -13,9 +13,7 @@ class MovesController < ApplicationController
     @player = player
     @resources = Game.get_resources_around_player(@player)
 
-    respond_to do |format|
-      format.html { render "new" }
-    end
+    render :new
   end
 
   private
