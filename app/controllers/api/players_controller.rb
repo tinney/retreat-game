@@ -11,6 +11,10 @@ class Api::PlayersController < Api::ApplicationController
             only: [
               :water_count,
               :food_count,
+              :food_stat, 
+              :water_stat, 
+              :stamina_stat, 
+              :strength_stat,
               :days_without_water,
               :days_without_food,
               :active,
@@ -37,6 +41,10 @@ class Api::PlayersController < Api::ApplicationController
           render json: { 
             player: player.as_json(
               only: [
+                :food_stat, 
+                :water_stat, 
+                :stamina_stat, 
+                :strength_stat,
                 :water_count,
                 :food_count,
                 :days_without_water,
@@ -46,7 +54,7 @@ class Api::PlayersController < Api::ApplicationController
               ],
               methods: [:x, :y]
             ),
-            board: resources,
+            board: resources
           }
         }
       end

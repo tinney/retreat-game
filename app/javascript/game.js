@@ -18,7 +18,8 @@ window.players = [];
 window.resources = [];
 
 function setup(players, resources) {
-  document.body.appendChild(app.view);
+  var target = document.getElementsByClassName("canvas-target");
+  target[0].appendChild(app.view);
   app.stage.addChild(resource_container);
   app.stage.addChild(players_container);
   addPlayers(players)
@@ -61,7 +62,7 @@ function removePlayer(id) {
 function addResource(resource) {
   let sprite_text = '💧';
   if (resource.is_food == true) {
-    sprite_text = '🍒';
+    sprite_text = '🌴';
   }
   
   let sprite = new PIXI.Text(sprite_text, {fontSize: 10, align : 'center'})
@@ -82,5 +83,5 @@ window.startGame = function(players, resources) {
   const f = function() {
     setup(players, resources);
   }
-  loader.add(PLAYER_SPRITES).load(f);
+  loader.load(f);
 }

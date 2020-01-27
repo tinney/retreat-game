@@ -1,15 +1,15 @@
-%style
-  zcanvas {
-  background-color: #f5e3ae;
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
-  }
-  
-  canvas {
-  background-image: url('#{asset_url("/assets/dirt.png")}');
-  }
-  
 - content_for :js do
   %script
-    window.PLAYER_SPRITES = "#{asset_url('/assets/jake_sprites.png')}"
     window.onload = function() { startGame(#{@players_json.html_safe}, #{@resources.to_json.html_safe}) }
+
+.zboard
+  .cell.top.left
+  .cell.top.center
+  .cell.top.right
+  .middle.cell.left
+  .middle.cell.center
+    .canvas-target
+  .middle.cell.right
+  .bottom.cell.left
+  .bottom.cell.center
+  .bottom.cell.right
