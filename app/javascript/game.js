@@ -35,7 +35,7 @@ function movePlayer(id, x, y) {
 }
 
 function addPlayer(player) {
-  let sprite = new PIXI.Text('💃', {fontSize: 10, align : 'center'})
+  let sprite = new PIXI.Text('💚', {fontSize: 10, align : 'center'})
   sprite.x = player.x * BOARD_MULTIPLIER
   sprite.y = player.y * BOARD_MULTIPLIER
 
