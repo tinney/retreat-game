@@ -7,9 +7,9 @@ class Api::ApplicationController < ApplicationController
   end
 
   def team_id
-    request.headers['HTTP_TEAM']
+    request.headers["HTTP_TEAM"] || request.headers["HTTP_Team"] || request.headers["HTTP_team"]
   end
-  
+
   def team
     Team.find_by(id: team_id)
   end
