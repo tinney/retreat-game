@@ -48,7 +48,7 @@ class Player < ApplicationRecord
   def as_json(options = {})
     super({
       only: [],
-      methods: [:x, :y, :is_water?, :is_food?, :is_player?]
+      methods: [:x, :y, :is_water, :is_food, :is_player]
     }.merge(options))
   end
 
@@ -66,11 +66,23 @@ class Player < ApplicationRecord
     false
   end
 
+  def is_water
+    false
+  end
+
   def is_food?
     false
   end
 
+  def is_food
+    false
+  end
+
   def is_player?
+    true
+  end
+  
+  def is_player
     true
   end
 

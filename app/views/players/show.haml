@@ -1,1 +1,5 @@
 %h3= @player.team.name
+
+- content_for :js do
+  %script
+    window.onload = function() { startMoves(#{@player.moves.to_json.html_safe}) }

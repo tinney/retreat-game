@@ -24,12 +24,24 @@ class Resource < ApplicationRecord
   def as_json(options = {})
     super({
       only: [],
-      methods: [:x, :y, :is_water?, :is_food?, :is_player?]
+      methods: [:x, :y, :is_water, :is_food, :is_player]
     }.merge(options))
   end
 
   def is_player?
     false
+  end
+  
+  def is_player
+    false
+  end
+
+  def is_food
+    is_food?
+  end
+  
+  def is_water
+    is_water?
   end
 
   def x
