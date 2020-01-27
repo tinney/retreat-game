@@ -15,5 +15,7 @@ Rails.application.routes.draw do
     resources :moves, only:   [:create]
   end
 
+  get 'leaderboard', to: 'games#leaderboard'
+
   root to: 'games#index'
 end
