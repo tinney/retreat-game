@@ -86,3 +86,22 @@ window.startGame = function(players, resources) {
   }
   loader.load(f);
 }
+
+window.startMoves = function(moves) {
+  console.log(moves)
+
+  let myGraph = new PIXI.Graphics();
+
+  var target = document.getElementsByClassName("canvas-target");
+  target[0].appendChild(app.view);
+  app.stage.addChild(myGraph);
+
+  // Move it to the beginning of the line
+  var start_x = moves[0].x
+  var start_y = moves[0].y
+  myGraph.position.set(0, 0)
+  myGraph.lineStyle(4, 0x75fe04).moveTo(start_x * BOARD_MULTIPLIER, start_y * BOARD_MULTIPLIER)
+  moves.forEach(function(move){
+    myGraph.lineTo(move.x * BOARD_MULTIPLIER, move.y * BOARD_MULTIPLIER);
+  });
+}

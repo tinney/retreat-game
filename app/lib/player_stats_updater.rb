@@ -10,10 +10,8 @@ class PlayerStatsUpdater
     player.days_without_water = days_without_water(player)
     player.days_without_food = days_without_food(player)
 
-    if player_consumes?(player)
-      player.eat
-      player.drink
-    end
+    player.eat if player_consumes?(player)
+    player.drink
 
     player.active = active?(player)
     player.save!

@@ -31,6 +31,8 @@
           %th w/o 💧
           %th w/o 🌭
           %th Moves
+          %th State
+          %th View
         %tbody
           - @team.players.order(:created_at).each do |player|
             %tr
@@ -46,6 +48,8 @@
               %td= player.days_active
               %td
                 -if player.active
-                  = link_to "😄", new_player_move_path(player)
+                  😄
                 - else
                   ☠️
+              %td
+                = link_to "View", team_player_path(@team, player)

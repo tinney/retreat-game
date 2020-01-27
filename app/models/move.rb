@@ -11,4 +11,19 @@
 #
 
 class Move < ApplicationRecord
+
+  def as_json(options = {})
+    super({
+      only: [],
+      methods: [:x, :y,]
+    }.merge(options))
+  end
+
+  def x
+    x_location
+  end
+
+  def y
+    y_location
+  end
 end

@@ -7,7 +7,7 @@ require 'pry'
 
 # BASE_URL = "https://retreat-game.herokuapp.com/"
 BASE_URL = "http://localhost:3000/api"
-TEAM_ID = "1"
+TEAM_ID = "24"
 HEADERS = {'Content-Type' =>'application/json', 'TEAM' => TEAM_ID }
 
 def make_request(api_endpoint, request_body)
@@ -50,20 +50,15 @@ def calcuclate_direction(x:, y:, board:)
 end
 
 puts "Playing the game"
-# 10.times do
-  puts "Creating a player"
-  response = make_request("players", {name: "Player w/ EQ Stats", water_stat: 5, food_stat: 5, stamina_stat: 5, strength_stat: 5})
-#   puts response
-#   sleep(3)
-# end
+response = make_request("players", {name: "Player w/ EQ Stats", water_stat: 5, food_stat: 5, stamina_stat: 5, strength_stat: 5})
+puts response
+sleep(3)
 
 puts "Moving the player around"
 
-# active = true
-# while(active)
-response = make_request("moves", { direction: "North" })
-  puts response
-#   direction = calcuclate_direction(x: response["player"]["x"], y: response["player"]["y"], board: response["board"])
-#   puts "Moving #{direction}"
-#   sleep(1)
-# end
+10.times do
+  direction = calcuclate_direction(x: response["player"]["x"], y: response["player"]["y"], board: response["board"])
+  response = make_request("moves", { direction: direction })
+  puts "Moving #{direction}"
+  sleep(1)
+end
