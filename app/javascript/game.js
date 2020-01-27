@@ -8,9 +8,10 @@ const resource_container = new PIXI.Container()
 const BOARD_WIDTH = 40
 const BOARD_HEIGHT = 30
 const BOARD_MULTIPLIER = 20
+const TEXT_SETTING = {fontSize: 20, align: 'center', fontFamily: 'Courier', dropShadow: true,  dropShadowBlur: '4', dropShadowAlpha: '0.75', dropShadowDistance: '5'}
 
 // note game heights are duplicated
-const app = new PIXI.Application({ width: 800, height: 600, transparent: true, resolution: 1, });
+const app = new PIXI.Application({ width: BOARD_MULTIPLIER * BOARD_WIDTH, height: BOARD_HEIGHT * BOARD_MULTIPLIER, transparent: true, antialias: true, resolution: 1, });
 
 window.app = app;
 // TODO update to be a single sprite container
@@ -35,7 +36,7 @@ function movePlayer(id, x, y) {
 }
 
 function addPlayer(player) {
-  let sprite = new PIXI.Text('💚', {fontSize: 10, align : 'center'})
+  let sprite = new PIXI.Text('💚', TEXT_SETTING)
   sprite.x = player.x * BOARD_MULTIPLIER
   sprite.y = player.y * BOARD_MULTIPLIER
 
@@ -65,7 +66,7 @@ function addResource(resource) {
     sprite_text = '🌴';
   }
   
-  let sprite = new PIXI.Text(sprite_text, {fontSize: 10, align : 'center'})
+  let sprite = new PIXI.Text(sprite_text, TEXT_SETTING)
   sprite.x = resource.x * BOARD_MULTIPLIER
   sprite.y = resource.y * BOARD_MULTIPLIER
 
