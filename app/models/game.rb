@@ -11,7 +11,7 @@
 
 class Game < ApplicationRecord
   def self.get_resources_at_location(x:, y:)
-    Resource.where(active: true, x_location: x, y_location: y) + Player.where(x_location: x, y_location: y).all
+    Resource.where(active: true, x_location: x, y_location: y) + Player.where(active: true, x_location: x, y_location: y).all
   end
 
   def self.get_resources_around_player(player)
