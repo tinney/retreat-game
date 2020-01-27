@@ -10,7 +10,7 @@ const BOARD_HEIGHT = 30
 const BOARD_MULTIPLIER = 20
 
 // note game heights are duplicated
-const app = new PIXI.Application({ width: BOARD_WIDTH * BOARD_MULTIPLIER, height: BOARD_HEIGHT * BOARD_MULTIPLIER, transparent: true, resolution: window.devicePixelRatio || 1, });
+const app = new PIXI.Application({ width: 800, height: 600, transparent: true, resolution: 1, });
 
 window.app = app;
 // TODO update to be a single sprite container
