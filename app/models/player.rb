@@ -102,7 +102,7 @@ class Player < ApplicationRecord
   end
 
   def stat_total
-    water_stat.to_i + food_stat.to_i + stamina_stat.to_i
+    water_stat.to_i + food_stat.to_i + stamina_stat.to_i + strength_stat.to_i
   end
 
   def update_location!(location)
